@@ -14,27 +14,40 @@
         window.onload = function() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const pathValue = urlParams.get('path');
+            const pathValue = urlParams.get('p');
 
             const videoElement = document.getElementById('my-video');
             const player = videojs(videoElement);
-            const videoUrl = 'https://s3.ap-northeast-2.amazonaws.com/dev.kjmenglish.com/' + pathValue;
+            const videoUrl = 'https://s3.ap-northeast-2.amazonaws.com/rec.kjmenglish.com/recording/' + pathValue;
+            const videoMp4Url = videoUrl.replace(/\.webm$/, '.mp4');
 
-            player.src(videoUrl);
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                // 아이폰 또는 아이패드라면 MP4만 추가
+                player.src([
+                    { type: 'video/mp4', src: videoMp4Url }
+                ]);
+            } else {
+                // 아이폰이 아니라면 WEBM을 먼저 추가
+                player.src([
+                    { type: 'video/webm', src: videoUrl },
+                    { type: 'video/mp4', src: videoMp4Url }
+                ]);
+            }
+
             player.play();
 
-            $('#btn-download').attr('href') = videoUrl;
+            let btnDownload = document.querySelector('#btn-download');
+            btnDownload.setAttribute('href', videoMp4Url);
+            btnDownload.setAttribute('download', videoMp4Url);
         };
 
     </script>
 </head>
 <body>
-    <div class="kjm-banner">
-        <img src="kjmenglish.png" widt="30" height="30" />
-    </div>
-    <video id="my-video" class="video-js kjm-video" controls>
-        <source type="video/webm">
-    </video>
-    <a id="btn-download" href="" download="원하는 파일 이름">다운로드</a>
+<div class="kjm-banner">
+    <img src="kjmenglish.png" widt="30" height="30" />
+</div>
+<video id="my-video" class="video-js kjm-video" controls></video>
+<a id="btn-download" href="" download="">다운로드</a>
 </body>
 </html>
