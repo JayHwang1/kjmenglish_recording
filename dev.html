@@ -21,21 +21,16 @@
             const videoUrl = 'https://s3.ap-northeast-2.amazonaws.com/dev.kjmenglish.com/recording/' + pathValue;
             const videoMp4Url = videoUrl.replace(/\.webm$/, '.mp4');
 
-            let source01 = document.createElement('source');
-            source01.setAttribute('src', videoUrl);
-            source01.setAttribute('type', 'video/webm');
-
-            let source02 = document.createElement('source');
-            source02.setAttribute('src', videoMp4Url);
-            source02.setAttribute('type', 'video/mp4');
-
             if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-                // 아이폰 또는 아이패드라면 MP4만 추가
-                videoElement.appendChild(source02);
+                player.src([
+                    { type: 'video/webm', src: videoUrl },
+                    { type: 'video/mp4', src: videoMp4Url }
+                ]);
             } else {
-                // 아이폰이 아니라면 WEBM을 먼저 추가
-                videoElement.appendChild(source01);
-                videoElement.appendChild(source02);
+                player.src([
+                    { type: 'video/webm', src: videoUrl },
+                    { type: 'video/mp4', src: videoMp4Url }
+                ]);
             }
 
             player.play();
