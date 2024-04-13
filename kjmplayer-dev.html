@@ -14,7 +14,7 @@
         window.onload = function() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const pathValue = urlParams.get('path');
+            const pathValue = urlParams.get('p');
 
             const videoElement = document.getElementById('my-video');
             const player = videojs(videoElement);
