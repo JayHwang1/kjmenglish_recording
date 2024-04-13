@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kjmplayer</title>
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
+    <style>
+        .kjm-banner { width:100%; height:50px; float:left; }
+        .kjm-video { width:100%; float:left; }
+    </style>
+    <script type='text/javascript'>
+        window.onload = function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const pathValue = urlParams.get('path');
+
+            const videoElement = document.getElementById('my-video');
+            const player = videojs(videoElement);
+            const videoUrl = 'https://s3.ap-northeast-2.amazonaws.com/dev.kjmenglish.com/' + pathValue;
+
+            player.src(videoUrl);
+            player.play();
+
+            $('#btn-download').attr('href') = videoUrl;
+        };
+
+    </script>
+</head>
+<body>
+    <div class="kjm-banner">
+        <img src="kjmenglish.png" widt="30" height="30" />
+    </div>
+    <video id="my-video" class="video-js kjm-video" controls>
+        <source type="video/webm">
+    </video>
+    <a id="btn-download" href="" download="원하는 파일 이름">다운로드</a>
+</body>
+</html>
