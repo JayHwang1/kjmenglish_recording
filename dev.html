@@ -23,7 +23,6 @@
 
             if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
                 player.src([
-                    { type: 'video/webm', src: videoUrl },
                     { type: 'video/mp4', src: videoMp4Url }
                 ]);
             } else {
