@@ -52,7 +52,7 @@
                 downloadElement.parentNode.removeChild(downloadElement);
 
                 document.getElementById("error-message").innerText = "동영상파일이 기간이 만료되었습니다.";
-
+                document.getElementById("error-message").style.display = 'block';
             });
 
         };
@@ -65,6 +65,6 @@
     </div>
     <video id="my-video" class="video-js kjm-video" controls></video>
     <a id="btn-download" href="" download="">다운로드</a>
-    <div id="error-message"></div>
+    <div id="error-message" style="display: none;"></div>
 </body>
 </html>
