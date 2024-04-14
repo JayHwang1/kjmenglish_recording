@@ -51,7 +51,7 @@
                 let downloadElement = document.getElementById('btn-download');
                 downloadElement.parentNode.removeChild(downloadElement);
 
-                document.getElementById("error-message").innerText = "동영상 파일의 기간이 <br />만료되었습니다.";
+                document.getElementById("error-message").innerHTML = "동영상 파일의 기간이 <br />만료되었습니다.";
                 document.getElementById("error-message").style.display = 'block';
             });
 
